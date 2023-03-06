@@ -57,7 +57,7 @@ app.event("message", async (e) => {
         })
         for (const msg of results.messages) {
             if (msg?.app_id) {
-                if (msg.app_id != "A04SCL9EHSP") continue
+                if (msg.app_id != process.env.SLACK_APP_ID) continue
                 messages.push({
                     role: "assistant",
                     content: msg.text
