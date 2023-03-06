@@ -1,6 +1,9 @@
 # Slack ChatGPT Bot
 
-[日本語](README-ja.md)
+[English](README.md)
+
+[![Run on Repl.it](https://repl.it/badge/github/tsubasa652/chatgpt-slack-bot)](https://repl.it/github/tsubasa652/chatgpt-slack-bot)
+
 
 ## Requirement
 

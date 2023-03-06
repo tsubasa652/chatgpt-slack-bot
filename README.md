@@ -2,6 +2,8 @@
 
 [日本語](README-ja.md)
 
+[![Run on Repl.it](https://repl.it/badge/github/tsubasa652/chatgpt-slack-bot)](https://repl.it/github/tsubasa652/chatgpt-slack-bot)
+
 ## Requirement
 
 Node.js 18.12.0 or newer is required
