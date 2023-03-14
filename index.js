@@ -1,9 +1,13 @@
 import fetch from "node-fetch"
+import HttpsProxyAgent from "https-proxy-agent"
 import Slack from "@slack/bolt"
 const { App } = Slack
 
 const max_tokens = 1024
 const temperature = 0.9
+
+const proxy = process.env.https_proxy
+const agent = new HttpsProxyAgent(proxy)
 
 async function chatgptRequest(model, messages) {
 
@@ -35,7 +39,8 @@ const app = new App({
     // logLevel: 'debug',
     socketMode: true,
     token: process.env.SLACK_BOT_TOKEN,
-    appToken: process.env.SLACK_APP_TOKEN
+    appToken: process.env.SLACK_APP_TOKEN,
+    agent
 })
 
 app.event("message", async (e) => {
