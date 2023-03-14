@@ -24,8 +24,13 @@ npm install
 8. Copy the token and set it in the environment variable SLACK_APP_TOKEN
 9. Select "Event Subscriptions" in the side menu
 10. Enable Events and add the following to bot event
-- message.channels
-- message.groups
+- channels:history
+- channels:manage
+- groups:history
+- groups:read
+- groups:write
+- users.profile:read
+- users:read
 
 11. Select "Install App" in the side menu and install ChatGPT-Bot to your workspace
 12. Copy the token and set it in the environment variable SLACK_BOT_TOKEN

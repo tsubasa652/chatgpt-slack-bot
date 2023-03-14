@@ -25,8 +25,13 @@ npm install
 8. 表示されたトークンをコピーし、環境変数のSLACK_APP_TOKENに設定します
 10. サイドメニューから「Event Subscriptions」を選択します
 11. イベントを有効にして以下の項目をBot Eventsに追加します
-- message.channels
-- message.groups
+- channels:history
+- channels:manage
+- groups:history
+- groups:read
+- groups:write
+- users.profile:read
+- users:read
 
 11. サイドメニューから「Install App」を選択し、ワークスペースにボットをインストールします
 14. 表示されたトークンをコピーし、環境変数のSLACK_BOT_TOKENに設定します
