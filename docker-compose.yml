@@ -1,0 +1,14 @@
+version: '3'
+services:
+  chatgpt-slack-bot:
+    build :
+      context : .
+      dockerfile : Dockerfile
+      args :
+        PROXY: ${PROXY}
+    command:
+      - devbox
+      - run
+      - start
+    volumes:
+      - ./:/code
