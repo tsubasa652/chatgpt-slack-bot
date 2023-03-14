@@ -7,7 +7,7 @@
       "source .env"
     ],
     "scripts": {
-      "start": "echo $SLACK_APP_ID"
+      "start": "node index.js"
     }
   },
   "nixpkgs": {
