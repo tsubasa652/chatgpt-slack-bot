@@ -8,6 +8,8 @@ const temperature = 0.9
 
 const proxy = process.env.https_proxy
 
+console.log(process.env.OPENAI_API_KEY)
+
 async function chatgptRequest(model, messages) {
 
     const payload = {
@@ -23,7 +25,10 @@ async function chatgptRequest(model, messages) {
             Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
             "Content-type": "application/json",
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        agent: proxy
+            ? new HttpsProxyAgent(proxy)
+            : undefined
     })
 
     if (!res.ok) {
@@ -39,7 +44,7 @@ const app = new App({
     socketMode: true,
     token: process.env.SLACK_BOT_TOKEN,
     appToken: process.env.SLACK_APP_TOKEN,
-    agent: process.env.https_proxy
+    agent: proxy
         ? new HttpsProxyAgent(proxy)
         : undefined
 })
