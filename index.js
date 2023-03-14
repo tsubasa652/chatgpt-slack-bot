@@ -7,7 +7,6 @@ const max_tokens = 1024
 const temperature = 0.9
 
 const proxy = process.env.https_proxy
-const agent = new HttpsProxyAgent(proxy)
 
 async function chatgptRequest(model, messages) {
 
@@ -40,7 +39,9 @@ const app = new App({
     socketMode: true,
     token: process.env.SLACK_BOT_TOKEN,
     appToken: process.env.SLACK_APP_TOKEN,
-    agent
+    agent: process.env.https_proxy
+        ? new HttpsProxyAgent(proxy)
+        : undefined
 })
 
 app.event("message", async (e) => {
