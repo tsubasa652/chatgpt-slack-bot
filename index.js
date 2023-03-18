@@ -6,9 +6,6 @@ const { App } = Slack
 
 const settings = JSON.parse(fs.readFileSync("settings.json"))
 
-const max_tokens = 1024
-const temperature = 0.9
-
 const proxy = settings.proxy || process.env.https_proxy
 
 async function chatgptRequest(messages) {
@@ -44,8 +41,49 @@ function saveSettings(){
     fs.writeFileSync("settings.json", JSON.stringify(settings, null, 4))
 }
 
+function addSettings(type, arg){
+    switch(type){
+        case "system_role":
+            settings.openai.system_roles.push({
+                role: "system",
+                content: arg[0]
+            })
+            break
+        case "admin":
+            if(settings.admin.includes(arg[0])) throw new Error("This user already admin")
+            settings.admin.push(arg[0])
+            break
+        default:
+            throw new Error("type not found")
+    }
+
+    saveSettings()
+}
+
+function removeSettings(type, arg){
+    switch(type){
+        case "system_role":
+            if(settings.openai.system_roles[Number(arg[0])]){
+                settings.openai.system_roles.splice(Number(arg[0]), 1)
+            }else{
+                throw new Error("selected system role not found")
+            }
+            break
+        case "admin":
+            if(settings.admin.includes(arg[0])){
+                settings.admin = settings.admin.filter(user=>!user.match(arg[0]))
+            }else{
+                throw new Error("selected user not found")
+            }
+            break
+        default:
+            throw new Error("type not found")
+    }
+
+    saveSettings()
+}
+
 function updateSettings(type, arg){
-    console.log(arg)
     switch(type){
         case "openai_api_key":
         case "model":
@@ -157,16 +195,20 @@ app.command("/chatgpt", async(e)=>{
         let text, tmp
     
         switch(command[0]){
-            case "add_system_role":
+            case "add":
                 try{
-                    settings.openai.system_roles.push({
-                        role: "system",
-                        content: command[1]
-                    })
-                    saveSettings()
-                    text = "Successfully add system_role!"
+                    addSettings(command[1], command.splice(2))
+                    text = "Successfully add settings!"
                 }catch(e){
-                    text = "Error occurred"
+                    text = `Error occurred\nreasons: ${e.message}`
+                }
+                break
+            case "remove":
+                try{
+                    removeSettings(command[1], command.splice(2))
+                    text = "Successfully remove settings!"
+                }catch(e){
+                    text = `Error occurred\nreasons: ${e.message}`
                 }
                 break
             case "update":
