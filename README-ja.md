@@ -22,6 +22,7 @@ Node.js 18.12.0または、より新しいバージョン
 3. [ここから](https://api.slack.com/apps?new_app=1)Slackアプリを作成します
 4. 「From an app manifest」を選択し、このボットを利用したいワークスペースを選択します。
 5. YAMLを選択し、以下のManifestを貼り付ける
+   
    Manifest
    ```yaml
    display_information:

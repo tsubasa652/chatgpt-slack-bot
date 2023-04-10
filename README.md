@@ -21,6 +21,7 @@ Node.js 18.12.0 or newer is required
 3. Create Slack App [here](https://api.slack.com/apps?new_app=1)
 4. Select "From an app manifest" and select workspace,　you want to use this app
 5. Select "YAML" and past Manifest
+   
    Manifest
    ```yaml
    display_information:
@@ -76,9 +77,5 @@ node index.js
 <!--
 ## Additional settings(Option)
 If you use the command, please add the following settings
-1. Open Slack App settings page
-2. Select "Slash Commands" in the side menu
-3. Click "Create New Commands"
-4. Enter "/chatgpt" in the command field and "ChatGPT Bot Settings" in the description field and save
-5. 
+1. 
 -->
