@@ -107,6 +107,60 @@ function updateSettings(type, arg){
     saveSettings()
 }
 
+function help(type){
+    const descriptions = {
+        "add": "Add admin user or system role",
+        "remove": "Remove admin user or system role",
+        "update": "Update settings",
+        "get": "Get currently settings.json",
+        "reload_settings": "Reload ChatGPT-Bot settings"
+    }
+    let text
+    switch(type){
+        case "add":
+            text = [
+                descriptions[type],
+                "/chatgpt add {subcommand} {value}",
+                "",
+                "admin: Add admin user",
+                "system_role: Add system role"
+            ].join("\n")
+            break
+        case "remove":
+            text = [
+                descriptions[type],
+                "/chatgpt remove {subcommand} {value}",
+                "",
+                "admin: Remove admin user",
+                "system_role: Remove system role"
+            ].join("\n")
+            break
+        case "update":
+            text = [
+                descriptions[type],
+                "/chatgpt update {subcommand} {value}",
+                "",
+                "openai_api_key: Update OpenAPI key to use",
+                "model: Update model to use",
+                "max_tokens: Update max tokens setting",
+                "temperature: Update temperature setting",
+                "system_role: Update system role setting"
+            ].join("\n")
+            break
+        case "get":
+            text = descriptions[type]
+            break
+        case "reload_settings":
+            text = descriptions[type]
+            break
+        default:
+            text = Object.keys(descriptions)
+                        .map(key=>`${key}: ${descriptions[key]}`)
+                        .join("\n")
+    }
+    return text
+}
+
 const app = new App({
     // logLevel: 'debug',
     socketMode: true,
@@ -223,7 +277,7 @@ app.command("/chatgpt", async(e)=>{
                 text = '```' + JSON.stringify(settings, null, 4) + '```'
                 break
             case "help":
-                text = "Preparing"
+                text = help(command?.splice(1)[0])
                 break
             case "reload_settings":
                 tmp = JSON.parse(fs.readFileSync("settings.json"))
